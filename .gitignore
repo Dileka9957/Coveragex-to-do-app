@@ -1,0 +1,13 @@
+# Frontend
+coveragex-taskapp-frontend/node_modules/
+coveragex-taskapp-frontend/dist/
+
+# Backend
+coveragex-taskapp-backend/.gradle/
+coveragex-taskapp-backend/build/
+coveragex-taskapp-backend/.idea/
+
+# General
+.DS_Store
+*.iml
+*.log
