@@ -1,35 +1,72 @@
-
-import { useEffect, useState } from 'react';
-import './App.css'
-import axios from 'axios';
+import { useState, useEffect } from 'react';
+import TaskForm from './components/TaskForm';
+import TaskList from './components/TaskList';
+import TaskService, { Task } from './services/TaskService';
+import './App.css';
 
 function App() {
-  const [connectionStatus, setConnectionStatus] = useState('Checking...');
-  const [error, setError] = useState(null);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/ping')
-      .then(response => {
-        setConnectionStatus(response.data.message);
-      })
-      .catch(err => {
-        setError('Failed to connect to backend');
-        console.error(err);
-      });
+    loadTasks();
   }, []);
 
+  const loadTasks = async () => {
+    try {
+      setLoading(true);
+      const data = await TaskService.getPendingTasks();
+      // Sort tasks by most recent first
+      const sortedTasks = data.sort((a, b) => (b.id || 0) - (a.id || 0));
+      setTasks(sortedTasks);
+      setError(null);
+    } catch (err) {
+      setError('Failed to load tasks. Please try again later.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleTaskAdded = (newTask: Task) => {
+    setTasks([newTask, ...tasks]);
+  };
+
+  const handleTaskCompleted = async (id: number) => {
+    try {
+      await TaskService.markTaskAsCompleted(id);
+      // Update the task in the local state
+      setTasks(tasks.map(task => 
+        task.id === id ? { ...task, isCompleted: true } : task
+      ));
+      // Alternatively, you could reload all tasks:
+      // loadTasks();
+    } catch (err) {
+      setError('Failed to update task status. Please try again.');
+      console.error(err);
+    }
+  };
+
   return (
-    <>
-     
+    <div className="app-container">
       <h1>To-do App</h1>
-      <h2 style={{ color: 'black' }}>Backend Connection Status</h2>
-      {error ? (
-        <p style={{ color: 'red' }}>{error}</p>
-      ) : (
-        <p style={{ color: 'green' }}>{connectionStatus}</p>
-      )}
-    </>
-  )
+      <div className="todo-content">
+        <div className="form-side">
+          <TaskForm onTaskAdded={handleTaskAdded} />
+        </div>
+        <div className="task-side">
+          {loading ? (
+            <div className="loading">Loading tasks...</div>
+          ) : error ? (
+            <div className="error">{error}</div>
+          ) : (
+            <TaskList tasks={tasks} onTaskCompleted={handleTaskCompleted} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
