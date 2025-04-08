@@ -9,7 +9,7 @@ const TaskForm = ({ onTaskAdded }: TaskFormProps) => {
   const [task, setTask] = useState({
     title: '',
     description: '',
-    isCompleted:false
+    isCompleted: false
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,9 +38,8 @@ const TaskForm = ({ onTaskAdded }: TaskFormProps) => {
         description: task.description,
         isCompleted: false
       });
-      console.log('new',task)
       onTaskAdded(newTask);
-      setTask({ title: '', description: '',isCompleted:false });
+      setTask({ title: '', description: '', isCompleted: false });
     } catch (err) {
       setError('Failed to create task. Please try again.');
       console.error(err);
@@ -51,33 +50,32 @@ const TaskForm = ({ onTaskAdded }: TaskFormProps) => {
 
   return (
     <div className="task-form-container">
-      <h2>Add a Task</h2>
-      {error && <div className="error-message">{error}</div>}
+      <h2 className='heading'>Add a Task</h2>
+      
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="title">Title</label>
           <input
             type="text"
             id="title"
             name="title"
             value={task.title}
             onChange={handleChange}
-            placeholder="Enter task title"
+            placeholder="Title"
             disabled={loading}
           />
         </div>
         <div className="form-group">
-          <label htmlFor="description">Description</label>
           <textarea
             id="description"
             name="description"
             value={task.description}
             onChange={handleChange}
-            placeholder="Enter task description"
+            placeholder="Description"
             disabled={loading}
-            rows={4}
           />
         </div>
+        {error && <div className="error-message">{error}</div>}
+        <div className="add-button-container">
         <button 
           type="submit" 
           className="add-button"
@@ -85,7 +83,9 @@ const TaskForm = ({ onTaskAdded }: TaskFormProps) => {
         >
           {loading ? 'Adding...' : 'Add'}
         </button>
+        </div>
       </form>
+      
     </div>
   );
 };

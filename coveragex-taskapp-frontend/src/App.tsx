@@ -8,17 +8,20 @@ function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
     loadTasks();
   }, []);
-
+  
   const loadTasks = async () => {
     try {
       setLoading(true);
       const data = await TaskService.getPendingTasks();
-      // Sort tasks by most recent first
-      const sortedTasks = data.sort((a, b) => (b.id || 0) - (a.id || 0));
+      // Sort tasks by most recent first and limit to 5
+      const sortedTasks = data
+        .filter(task => !task.isCompleted)
+        .sort((a, b) => (b.id || 0) - (a.id || 0))
+        .slice(0, 5);
       setTasks(sortedTasks);
       setError(null);
     } catch (err) {
@@ -28,29 +31,26 @@ function App() {
       setLoading(false);
     }
   };
-
+  
   const handleTaskAdded = (newTask: Task) => {
-    setTasks([newTask, ...tasks]);
+    // Add the new task and keep only the 5 most recent tasks
+    const updatedTasks = [newTask, ...tasks].slice(0, 5);
+    setTasks(updatedTasks);
   };
-
+  
   const handleTaskCompleted = async (id: number) => {
     try {
       await TaskService.markTaskAsCompleted(id);
-      // Update the task in the local state
-      setTasks(tasks.map(task => 
-        task.id === id ? { ...task, isCompleted: true } : task
-      ));
-      // Alternatively, you could reload all tasks:
-      // loadTasks();
+      // Remove completed task from UI
+      setTasks(tasks.filter(task => task.id !== id));
     } catch (err) {
       setError('Failed to update task status. Please try again.');
       console.error(err);
     }
   };
-
+  
   return (
     <div className="app-container">
-      <h1>To-do App</h1>
       <div className="todo-content">
         <div className="form-side">
           <TaskForm onTaskAdded={handleTaskAdded} />

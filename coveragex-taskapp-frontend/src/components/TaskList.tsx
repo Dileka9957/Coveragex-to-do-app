@@ -18,10 +18,10 @@ const TaskList = ({ tasks, onTaskCompleted }: TaskListProps) => {
   return (
     <div className="task-list">
       {tasks.map(task => (
-        <TaskCard 
-          key={task.id} 
-          task={task} 
-          onCompleted={() => onTaskCompleted(task.id!)} 
+        <TaskCard
+          key={task.id}
+          task={task}
+          onCompleted={() => onTaskCompleted(task.id!)}
         />
       ))}
     </div>
