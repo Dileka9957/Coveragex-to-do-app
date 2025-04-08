@@ -17,11 +17,9 @@ function App() {
     try {
       setLoading(true);
       const data = await TaskService.getPendingTasks();
-      // Sort tasks by most recent first and limit to 5
       const sortedTasks = data
         .filter(task => !task.isCompleted)
         .sort((a, b) => (b.id || 0) - (a.id || 0))
-        .slice(0, 5);
       setTasks(sortedTasks);
       setError(null);
     } catch (err) {
@@ -33,8 +31,7 @@ function App() {
   };
   
   const handleTaskAdded = (newTask: Task) => {
-    // Add the new task and keep only the 5 most recent tasks
-    const updatedTasks = [newTask, ...tasks].slice(0, 5);
+    const updatedTasks = [newTask, ...tasks];
     setTasks(updatedTasks);
   };
   
