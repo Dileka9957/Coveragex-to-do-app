@@ -47,19 +47,21 @@ function App() {
   };
   
   return (
-    <div className="app-container">
-      <div className="todo-content">
-        <div className="form-side">
-          <TaskForm onTaskAdded={handleTaskAdded} />
-        </div>
-        <div className="task-side">
-          {loading ? (
-            <div className="loading">Loading tasks...</div>
-          ) : error ? (
-            <div className="error">{error}</div>
-          ) : (
-            <TaskList tasks={tasks} onTaskCompleted={handleTaskCompleted} />
-          )}
+    <div className="outer-app-container">
+      <div className="app-container">
+        <div className="todo-content">
+          <div className="form-side">
+            <TaskForm onTaskAdded={handleTaskAdded} />
+          </div>
+          <div className="task-side">
+            {loading ? (
+              <div className="loading">Loading tasks...</div>
+            ) : error ? (
+              <div className="error">{error}</div>
+            ) : (
+              <TaskList tasks={tasks} onTaskCompleted={handleTaskCompleted} />
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -82,11 +82,19 @@ body {
   color: #333;
 }
 
+/* Outer App Container */
+.outer-app-container{
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: rgb(226, 220, 220);
+  border: 1px solid rgb(173, 166, 166);
+}
+
 /* App Container */
 .app-container {
   max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
+  padding: 40px;
   background-color: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border-radius: 8px;
@@ -108,7 +116,7 @@ body {
 .form-side {
   flex: 1;
   border-right: 1px solid #979696;
-  padding-right: 20px;
+  padding-right: 40px;
 }
 
 @media (max-width: 768px) {
@@ -130,7 +138,7 @@ body {
 /* Task Side */
 .task-side {
   flex: 1;
-  padding-left: 0;
+  padding-left: 5px;
 }
 
 /* @media (max-width: 768px) {
@@ -141,14 +149,14 @@ body {
 
 /* Task Form */
 .task-form-container {
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .task-form-container h2 {
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 20px;
-  color: #333;
+  color: black;
 }
 
 .form-group {
@@ -166,7 +174,7 @@ body {
 .form-group textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid rgb(116, 110, 110);
   background-color: white;
   color: black;
   border-radius: 4px;
@@ -204,8 +212,9 @@ body {
   color: white;
   border: none;
   border-radius: 4px;
-  padding: 10px 15px;
+  padding: 8px 15px;
   font-size: 14px;
+  width: 80px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
