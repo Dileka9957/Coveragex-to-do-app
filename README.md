@@ -1,28 +1,40 @@
------Backend Springboot Application with PostgreSQL Database-----
+# CoverageX TaskApp
 
-1 Create postgreSQL database -> db name - coveragex-taskapp
+A full-stack task management application built with:
 
-2 Open the backend project with an IDE
+- **Frontend**: React + Vite (`coveragex-taskapp-frontend`)
+- **Backend**: Spring Boot (`coveragex-taskapp-backend`)
+- **Database**: PostgreSQL
+- **Containerized** using Docker Compose
 
-3 Install node modules -> npm install
+---
 
-4 Build the project ( For Gradle ) -> ./gradlew clean bootJar
+## Prerequisites
 
-5 Build the image -> docker build -t springboot-app .
+- Docker & Docker Compose installed
 
-6 Run the container -> docker run -p 8080:8080 springboot-app
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Dileka9957/Coveragex-to-do-app.git
+cd Coveragex-to-do-app
+
+### 2. Build and run the application
+
+docker-compose up --build
+
+Above command will:
+    Build the frontend and backend apps
+    Start the PostgreSQL database
+    Expose the services
 
 
------Frontend React Application-----
+App URLs
 
-1 Open the frontend project with an IDE
-
-2 Install node modules -> npm install
-
-3 Build the project -> npm run build
-
-4 Build the image -> docker build -t vite-react-app .
-
-5 Run the container -> docker run -p 5173:80 vite-react-app
- 
-* The application should then be accessible at http://localhost:5173 in your browser.
+Frontend: http://localhost:5173
+Backend API: http://localhost:8080
+PostgreSQL: localhost:5432 (username: postgres, password: root)
