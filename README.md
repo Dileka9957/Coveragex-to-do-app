@@ -2,8 +2,8 @@
 
 A full-stack task management application built with:
 
-- **Frontend**: React + Vite (`taskapp-frontend`)
-- **Backend**: Spring Boot (`taskapp-backend`)
+- **Frontend**: React + Vite (`coveragex-taskapp-frontend`)
+- **Backend**: Spring Boot (`coveragex-taskapp-backend`)
 - **Database**: PostgreSQL
 - **Containerized** using Docker Compose
 
@@ -14,8 +14,8 @@ A full-stack task management application built with:
 
 ### 1. Clone the repository
 
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/Dileka9957/Coveragex-to-do-app.git
+cd Coveragex-to-do-app
 
 ### 2. Build and run the application
 
